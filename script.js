@@ -1,42 +1,30 @@
+
+
 function calculateMinCost() {
   //your code here
-  const str = document.querySelector('#rope-lengths').value
-  const strArr = str.split(',')
-	const arr = strArr.map(e => {
-		return Number.parseInt(e);
-	})
-	let n = arr.length
-
-	let ans = helper(arr, n)
-	document.querySelector('#result').innerText = ans;
-}  
-
-function helper(arr, n) {
-	// Create a priority queue
-        let pq = [];
-   
-        // Adding items to the pQueue
-        for (let i = 0; i < n; i++) {
-            pq.push(arr[i]);
-        }   
-           
-        pq.sort(function(a,b){return a-b;});
-         
-        // Initialize result
-        let res = 0;
-   
-        // While size of priority queue
-        // is more than 1
-        while (pq.length > 1) {
-            // Extract shortest two ropes from pq
-            let first = pq.shift();
-            let second = pq.shift();
-   
-            // Connect the ropes: update result
-            // and insert the new rope to pq
-            res += first + second;
-            pq.push(first + second);
-            pq.sort(function(a,b){return a-b;});
-        }
-	return res;
-}
+   // read data from input element;
+  var inputData = document.querySelector("#rope-lengths").value;
+  var inputArr = inputData.split(",");
+ 
+  for (var i = 0; i < inputArr.length; i++) {
+    inputArr[i] = Number(inputArr[i]);
+  }
+	
+	inputArr.sort( function (a , b){ return a-b; })
+  var tcost = 0;
+ 
+  while (inputArr.length > 1)
+ {
+    var cost = inputArr[0] + inputArr[1];
+    tcost =tcost + cost;
+ 
+    // delete first two element
+    inputArr.splice(0, 2);
+    inputArr.push(cost);
+	 
+  inputArr.sort( function(a , b){ return a-b; })
+  }
+  document.querySelector("#result").textContent = tcost;
+  
+  
+} 
